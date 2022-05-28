@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+<div id="master_container">
+	<div id="container">
+		<input id="input_box">
+		<button onclick="add()">+</button>
+		
+	</div>
+</div>	
+<script>
+	var num = 0;
+	function add(){
+		var div1 = document.createElement("div");
+		div1.id = "container"+num
+		div1.innerHTML = `
+				<input id="input_box">
+				<button onclick="add()">+</button>
+				<button onclick="remove(${num})">-</button>`;
+		document.getElementById("master_container").appendChild(div1);
+		num++
+ 		
+	}
+	function remove(num){
+		var id="container"+num
+		var element = document.getElementById(id)
+		var parentElement = document.getElementById("master_container")
+		parentElement.removeChild(element)
+	}
+	
+</script>
+</body>
+</html>
