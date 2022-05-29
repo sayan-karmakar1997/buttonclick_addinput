@@ -5,31 +5,57 @@
 </head>
 <body>
 <div id="master_container">
-	<div id="container">
+	<div id="container0" class="container">
 		<input id="input_box">
 		<button onclick="add()">+</button>
-		
+		<button style="display: none;" id="removeButton" onclick="remove(0)">-</button>
 	</div>
 </div>	
 <script>
+    var count = 1;
+    var state = false
 	var num = 0;
-	function add(){
+	function add(){        
+		num++
 		var div1 = document.createElement("div");
 		div1.id = "container"+num
+        div1.className = "container";
 		div1.innerHTML = `
 				<input id="input_box">
 				<button onclick="add()">+</button>
-				<button onclick="remove(${num})">-</button>`;
+				<button onclick="remove(${num})" id="removeButton">-</button>`;
 		document.getElementById("master_container").appendChild(div1);
-		num++
- 		
+        count = count+1
+ 		check_count()
 	}
 	function remove(num){
 		var id="container"+num
 		var element = document.getElementById(id)
 		var parentElement = document.getElementById("master_container")
 		parentElement.removeChild(element)
+        count = count-1
+        check_count()
 	}
+    function check_count(){
+        if(count==1){
+            state=false
+        }else{
+            state=true
+        }
+        adjustRemoveButton()
+    }
+   
+    function adjustRemoveButton(){
+        var parent = document.getElementById("master_container")
+        var child = parent.querySelector(".container")
+        if(state==false){
+            child.querySelector("#removeButton").style.display = "none";
+        }
+        else{
+            child.querySelector("#removeButton").style.display = "inline";
+        }
+    }
+
 	
 </script>
 </body>
